@@ -1,0 +1,1 @@
+var idiomFilter = angular.module("idiomFilter", []);
