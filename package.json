@@ -1,0 +1,23 @@
+{
+  "name": "idiom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt": "^1.0.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://mygongsun@github.com/mygala/idiom.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mygala/idiom/issues"
+  },
+  "homepage": "https://github.com/mygala/idiom#readme"
+}

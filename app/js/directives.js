@@ -37,6 +37,9 @@ idiomDirective.directive("super", function() {
 				});
 			};
 		}],
+		compile: function() {
+			
+		},
 		link: function(scope, element, attrs) {
 			
 		}
@@ -63,7 +66,7 @@ idiomDirective.directive("startup", function() {
 		templateUrl: "./tpls/startup.html",
 		replace: true,
 		link: function() {
-			window.alert("startup");
+			
 		}
 	};
 });
