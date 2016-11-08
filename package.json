@@ -1,20 +1,31 @@
 {
   "name": "idiom",
   "version": "1.0.0",
-  "description": "",
-  "main": "Gruntfile.js",
-  "dependencies": {
-    "grunt": "^1.0.1"
+  "file": "app",
+  "description": "idiom",
+  "dependencies": {},
+  "devDependencies": {
+    "connect-livereload": "^0.6.0",
+    "grunt": "^1.0.1",
+    "grunt-contrib-clean": "^1.0.0",
+    "grunt-contrib-concat": "^1.0.1",
+    "grunt-contrib-connect": "^1.0.2",
+    "grunt-contrib-copy": "^1.0.0",
+    "grunt-contrib-cssmin": "^1.0.2",
+    "grunt-contrib-jshint": "^1.0.0",
+    "grunt-contrib-requirejs": "^1.0.0",
+    "grunt-contrib-uglify": "^2.0.0",
+    "grunt-contrib-watch": "^1.0.0",
+    "grunt-strip": "^0.2.1"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "test"
   },
   "repository": {
     "type": "git",
     "url": "git+https://mygongsun@github.com/mygala/idiom.git"
   },
-  "author": "",
+  "author": "mygongsun",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mygala/idiom/issues"
