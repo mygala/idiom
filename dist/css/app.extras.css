@@ -1,0 +1,29 @@
+/*! app 2016-11-14 */
+@charset "utf-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	font-size: 10px;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-size: 10px;
+}
+
+
+
+
+
+/* ----------------- symbol ----------------- */
+
+@charset "utf-8";
+
+.extras {
+	font-size: 20px;
+}
