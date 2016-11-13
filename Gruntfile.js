@@ -64,20 +64,20 @@ module.exports = function(grunt) {
 			js_base: {
 				//src: ['app/js/app.js', 'app/js/controllers.js', 'app/js/directives.js', 'app/js/filters.js', 'app/js/routes.js', 'app/js/services.js'],
 				src: ['app/js/*.js'],
-				dest: 'dest/js/<%= pkg.file %>.js'
+				dist: 'dist/js/<%= pkg.file %>.js'
 			},
 			js_extras: {
 				//src: ['app/js/app.js', 'app/js/controllers.js', 'app/js/directives.js', 'app/js/filters.js', 'app/js/routes.js', 'app/js/services.js'],
 				src: ['app/js/*.js'],
-				dest: 'dest/js/<%= pkg.file %>.extras.js'
+				dist: 'dist/js/<%= pkg.file %>.extras.js'
 			},
 			css_base: {
 				src: ['app/css/main.css', 'app/css/extras.css'],
-				dest: 'dest/css/<%= pkg.file %>.css'
+				dist: 'dist/css/<%= pkg.file %>.css'
 			},
 			css_extras: {
 				src: ['app/css/main.css', 'app/css/extras.css'],
-				dest: 'dest/css/<%= pkg.file %>.extras.css'
+				dist: 'dist/css/<%= pkg.file %>.extras.css'
 			}
 		},
 		// JS脚本语法检查
@@ -90,10 +90,10 @@ module.exports = function(grunt) {
 			pre_base: ['app/js/*.js'],
 			//pre_extras: ['app/js/app.js', 'app/js/controllers.js', 'app/js/directives.js', 'app/js/filters.js', 'app/js/routes.js', 'app/js/services.js'],
 			pre_extras: ['app/js/*.js'],
-			concat_base: 'dest/js/<%= pkg.file %>.js',
-			concat_extras: 'dest/js/<%= pkg.file %>.extras.js',
-			build_base: 'dest/js/<%= pkg.file %>.min.js',
-			build_extras: 'dest/js/<%= pkg.file %>.extras.min.js'
+			concat_base: 'dist/js/<%= pkg.file %>.js',
+			concat_extras: 'dist/js/<%= pkg.file %>.extras.js',
+			build_base: 'dist/js/<%= pkg.file %>.min.js',
+			build_extras: 'dist/js/<%= pkg.file %>.extras.min.js'
 		},
 		// JS混淆压缩
 		uglify: {
@@ -101,23 +101,23 @@ module.exports = function(grunt) {
 				banner: '/*! <%= pkg.file %> <%= grunt.template.today("yyyy-mm-dd") %> */\n',
 			},
 			build_base: {
-				src: 'dest/js/<%= pkg.file %>.js',
-				dest: 'dest/js/<%= pkg.file %>.min.js'
+				src: 'dist/js/<%= pkg.file %>.js',
+				dist: 'dist/js/<%= pkg.file %>.min.js'
 			},
 			build_extras: {
-				src: 'dest/js/<%= pkg.file %>.extras.js',
-				dest: 'dest/js/<%= pkg.file %>.extras.min.js'
+				src: 'dist/js/<%= pkg.file %>.extras.js',
+				dist: 'dist/js/<%= pkg.file %>.extras.min.js'
 			}
 		},
 		// CSS压缩
 		cssmin: {
 			css_base: {
 				src: ['app/css/*.css'],
-				dest: 'dest/css/<%= pkg.file %>.min.css'
+				dist: 'dist/css/<%= pkg.file %>.min.css'
 			},
 			css_extras: {
 				src: ['app/css/*.css'],
-				dest: 'dest/css/<%= pkg.file %>.extras.min.css'
+				dist: 'dist/css/<%= pkg.file %>.extras.min.css'
 			}
 		}
 	}); // grunt.initConfig配置完毕
