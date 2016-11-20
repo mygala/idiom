@@ -1,2 +1,2 @@
-# idiom-frontend
-idiom-frontend
+# idiom
+idiom
