@@ -4,10 +4,6 @@
 
         private static $firePhp = null;
 
-        function __construct() {
-
-        }
-
         /**
          * 获取FirePHP对象
          *

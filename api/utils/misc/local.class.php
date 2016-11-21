@@ -1,6 +1,6 @@
 <?php
 
-    class GuestInfo {
+    class Local {
 
         /**
          * 获取浏览器语言

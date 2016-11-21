@@ -3,7 +3,7 @@
     class Output {
 
         function __construct() {
-            
+
         }
 
         /**
@@ -14,7 +14,7 @@
          * @param bool $o
          * @return string
          */
-        public static function output($code, $extends = null, $o = false) {
+        public static function r($code, $extends = null, $o = false) {
             $output = null;
 
             $output['code']   = $code;
@@ -67,8 +67,5 @@
             }
 
             return $desc;
-
         }
-
     }
-

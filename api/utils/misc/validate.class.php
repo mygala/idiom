@@ -1,10 +1,6 @@
 <?php
 
-    class Is {
-
-        function __construct() {
-
-        }
+    class Validate {
 
         /**
          * 验证邮箱
