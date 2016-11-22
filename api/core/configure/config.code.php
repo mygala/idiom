@@ -21,5 +21,9 @@
     define("ACCOUNT_PASSWORD_ERROR", 3001);
     define("ACCOUNT_PASSWORD_ERROR_DESC", "Account or password error");
 
+    // 权限验证错误
+    define("SIGNATURE_ERROR", 7001);
+    define("SIGNATURE_ERROR_DESC", "Signature error");
+
     /* 返回码及返回描述定义 结束 */
 

@@ -19,13 +19,20 @@
 
             $output['code']   = $code;
             $output['desc']   = self::getDesc($code);
-            if ($extends) {
-                $output['extend'] = $extends;
+
+            if ($extends || is_array($extends)) {
+
+                // 数据长度
+                $output['number'] = count($extends);
+
+                if ($output['number']) {
+                    $output['extend'] = $extends;
+                }
             }
 
             if ($o) {
                 echo self::toJson($output);
-                return '';
+                return null;
             } else {
                 return self::toJson($output);
             }
@@ -61,6 +68,9 @@
                     break;
                 case ACCOUNT_PASSWORD_ERROR:
                     $desc = ACCOUNT_PASSWORD_ERROR_DESC;
+                    break;
+                case SIGNATURE_ERROR:
+                    $desc = SIGNATURE_ERROR_DESC;
                     break;
                 default:
                     $desc = INVALID_ERROR_DESC;

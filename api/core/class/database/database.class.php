@@ -89,7 +89,7 @@
          * @param string $condition
          * @return array|null
          */
-        public function getRow($table, $dataArray, $condition = "") {
+        public function getRow($table, $dataArray, $condition = "", $limit = "") {
 
             // 构造查询字段
             if (empty($dataArray) || !is_array($dataArray) || count($dataArray) <= 0) {
@@ -103,7 +103,7 @@
             }
 
             // 执行
-            $sql = "SELECT $field FROM $table WHERE 1=1" . (!empty($condition) ? " AND ($condition)" : "");
+            $sql = "SELECT $field FROM $table WHERE 1=1" . (!empty($condition) ? " AND ($condition)" : "") . (!empty($limit) ? " LIMIT $limit, 1" : "");
             $query = $this->query($sql);
             $rt =& mysqli_fetch_row($query);
 
@@ -121,7 +121,7 @@
          * @param int $resultType
          * @return array
          */
-        public function get($table, $dataArray, $condition = "", $resultType = MYSQLI_ASSOC) {
+        public function get($table, $dataArray, $condition = "", $limit = "", $resultType = MYSQLI_ASSOC) {
 
             // 构造查询字段
             if (empty($dataArray) || !is_array($dataArray) || count($dataArray) <= 0) {
@@ -135,16 +135,14 @@
             }
 
             // 执行
-            $sql = "SELECT $field FROM $table WHERE 1=1" . (!empty($condition) ? " AND ($condition)" : "");
+            $sql = "SELECT $field FROM $table WHERE 1=1" . (!empty($condition) ? " AND ($condition)" : "") . (!empty($limit) ? " LIMIT $limit" : "");
             $query = $this->query($sql);
 
             // 获取查询结果
-            $i = 0;
             $rt = array();
 
             while ($row =& mysqli_fetch_array($query, $resultType)) {
-                $rt[$i] = $row;
-                $i++;
+                $rt[] = $row;
             }
 
             Logs::debug($sql, "获取记录数组");
