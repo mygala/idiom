@@ -14,13 +14,10 @@
         require_once(dirname(__FILE__) . "/../auth/idiom.auth.class.php");
 
         $authString = strtolower("number=" . $_REQUEST["number"]);
-        $authSign   = $_REQUEST["sign"];
 
         //var_dump(sha1(strtolower("number=" . $_REQUEST["number"]) . "&sks_" . strtolower("83DE535E7774DF82B2E0A4DF953D702F")));
 
-        $auth = new IdiomAuth($authString, $authSign);
-
-        if (!$auth->sign()) {
+        if (!IdiomAuth::authSign($authString, $_REQUEST["sign"])) {
             echo Output::r(7001);
             exit(0);
         }

@@ -4,22 +4,16 @@
 
     class IdiomAuth extends Auth {
 
-        private $string;
-        private $sign;
-
-        public function __construct($string, $sign) {
-            $this->string = $string;
-            $this->sign   = $sign;
-        }
-
         /**
          * 验证接口调用签名(idiom)
          *
+         * @param string $string
+         * @param string $sign
          * @return bool
          */
-        public function sign() {
+        public static function authSign($string, $sign) {
 
             // 调用父方法验证签名
-            return parent::sign($this->string, $this->sign, "idiom");
+            return parent::sign($string, $sign, "idiom");
         }
     }
