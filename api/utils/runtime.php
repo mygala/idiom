@@ -4,7 +4,9 @@
 
     ini_set('display_errors', true);
 
-    session_start();
+    if (!session_id()) {
+        session_start();
+    }
 
     ob_start();
 
