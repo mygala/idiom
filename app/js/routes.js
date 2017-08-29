@@ -1,1 +1,0 @@
-//idiomApp.config();

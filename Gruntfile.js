@@ -51,7 +51,7 @@ module.exports = function(grunt) {
 				},
 				// '**' 表示包含所有的子目录
 				// '*' 表示包含所有的文件
-				files: ['app/*.html', 'app/js/**/*.js', 'app/css/**/*.css', 'app/images/**/*', 'app/tpls/**/*.html', 'app/data/**/*.json', 'app/bower_components/**/*']
+				files: ['app/*.html', 'app/js/**/*.js', 'app/less/**/*.css', 'app/images/**/*', 'app/tpls/**/*.html', 'app/data/**/*.json', 'app/bower_components/**/*']
 			}
 		},
 		// 文件合并
@@ -72,12 +72,12 @@ module.exports = function(grunt) {
 				dest: 'dist/js/<%= pkg.file %>.extras.js'
 			},
 			css_base: {
-				src: ['app/css/main.css', 'app/css/extras.css'],
-				dest: 'dist/css/<%= pkg.file %>.css'
+				src: ['app/less/main.less', 'app/less/extras.less'],
+				dest: 'dist/less/<%= pkg.file %>.css'
 			},
 			css_extras: {
-				src: ['app/css/main.css', 'app/css/extras.css'],
-				dest: 'dist/css/<%= pkg.file %>.extras.css'
+				src: ['app/less/main.less', 'app/less/extras.less'],
+				dest: 'dist/less/<%= pkg.file %>.extras.less'
 			}
 		},
 		// JS脚本语法检查
@@ -112,12 +112,12 @@ module.exports = function(grunt) {
 		// CSS压缩
 		cssmin: {
 			css_base: {
-				src: ['app/css/*.css'],
-				dest: 'dist/css/<%= pkg.file %>.min.css'
+				src: ['app/less/*.css'],
+				dest: 'dist/less/<%= pkg.file %>.min.css'
 			},
 			css_extras: {
-				src: ['app/css/*.css'],
-				dest: 'dist/css/<%= pkg.file %>.extras.min.css'
+				src: ['app/less/*.css'],
+				dest: 'dist/less/<%= pkg.file %>.extras.min.css'
 			}
 		}
 	}); // grunt.initConfig配置完毕

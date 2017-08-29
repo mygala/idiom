@@ -1,6 +1,1 @@
-var idiomApp = angular.module("idiomApp", [
-	"idiomController",
-	"idiomDirective",
-	"idiomFilter",
-	"idiomService"
-]);
+var idiomApp = angular.module("idiomApp", ["ui.router", "pascalprecht.translate", "idiomControllers"]);

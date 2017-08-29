@@ -36,21 +36,18 @@ idiomDirective.directive("super", function() {
 					console.log("data", data);
 				});
 			};
-		}],
-		compile: function() {
-			
-		},
-		link: function(scope, element, attrs) {
-			
-		}
+		}]
 	};
 });
 
 // 点击开始指令
 idiomDirective.directive("play", function() {
 	return {
-		require: "^super",
-		link: function(scope, element, attrs, superCtrl) {
+		require: "?super",
+		link: function(scope, element, attr, superCtrl) {
+
+			console.log(superCtrl);
+
 			element.bind("click", function() {
 				window.alert("start");
 				superCtrl.play();
