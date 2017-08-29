@@ -62,12 +62,12 @@ module.exports = function(grunt) {
 				stripBanners: false
 			},
 			js_base: {
-				//src: ['app/js/app.js', 'app/js/controllers.js', 'app/js/directives.js', 'app/js/filters.js', 'app/js/routes.js', 'app/js/services.js'],
+				//src: ['app/js/app.js', 'app/js/controllers.js', 'app/js/startup.js', 'app/js/filters.js', 'app/js/routes.js', 'app/js/services.js'],
 				src: ['app/js/*.js'],
 				dest: 'dist/js/<%= pkg.file %>.js'
 			},
 			js_extras: {
-				//src: ['app/js/app.js', 'app/js/controllers.js', 'app/js/directives.js', 'app/js/filters.js', 'app/js/routes.js', 'app/js/services.js'],
+				//src: ['app/js/app.js', 'app/js/controllers.js', 'app/js/startup.js', 'app/js/filters.js', 'app/js/routes.js', 'app/js/services.js'],
 				src: ['app/js/*.js'],
 				dest: 'dist/js/<%= pkg.file %>.extras.js'
 			},
@@ -86,9 +86,9 @@ module.exports = function(grunt) {
 				"-W033": false,
 				"-W030": true
 			},
-			//pre_base: ['app/js/app.js', 'app/js/controllers.js', 'app/js/directives.js', 'app/js/filters.js', 'app/js/routes.js', 'app/js/services.js'],
+			//pre_base: ['app/js/app.js', 'app/js/controllers.js', 'app/js/startup.js', 'app/js/filters.js', 'app/js/routes.js', 'app/js/services.js'],
 			pre_base: ['app/js/*.js'],
-			//pre_extras: ['app/js/app.js', 'app/js/controllers.js', 'app/js/directives.js', 'app/js/filters.js', 'app/js/routes.js', 'app/js/services.js'],
+			//pre_extras: ['app/js/app.js', 'app/js/controllers.js', 'app/js/startup.js', 'app/js/filters.js', 'app/js/routes.js', 'app/js/services.js'],
 			pre_extras: ['app/js/*.js'],
 			concat_base: 'dist/js/<%= pkg.file %>.js',
 			concat_extras: 'dist/js/<%= pkg.file %>.extras.js',

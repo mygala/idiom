@@ -1,9 +1,16 @@
 
 // 路由、拦截器语言包初始化处理
 idiomApp.config(["$stateProvider", "$urlRouterProvider", "$translateProvider", function($sp, $urp, $translateProvider) {
+
+    // startup
     $sp.state("startup", {
         url: "/startup",
         templateUrl: "tpls/startup.html?t=" + Math.floor(Date.now() / 1000)
+    });
+
+    $sp.state("doing", {
+        url: "/doing",
+        templateUrl: "tpls/doing.html?t=" + Math.floor(Date.now() / 1000)
     });
 
     //设置默认路由

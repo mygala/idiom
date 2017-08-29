@@ -94,7 +94,7 @@ idiomDirective.directive("startup", function() {
 idiomDirective.directive("playbox", function() {
 	return {
 		restrict: "E",
-		templateUrl: "./tpls/play_box.html",
+		templateUrl: "./tpls/doing.html",
 		replace: true
 	}
 });
