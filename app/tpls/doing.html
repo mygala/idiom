@@ -1,3 +1,9 @@
 <div class="doing" ng-controller="doingCtrl">
-	doing
+	<div class="timeout" ng-bind="settings.timeout"></div>
+	<div class="showIdiom">
+		<span ng-click="correcting(1)">{{doing.idioms[doing.i].w[0][0]}}</span>
+		<span ng-click="correcting(2)">{{doing.idioms[doing.i].w[1][0]}}</span>
+		<span ng-click="correcting(3)">{{doing.idioms[doing.i].w[2][0]}}</span>
+		<span ng-click="correcting(4)">{{doing.idioms[doing.i].w[3][0]}}</span>
+	</div>
 </div>

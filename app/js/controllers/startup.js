@@ -10,7 +10,7 @@ angular.module("idiomControllers.startup", [])
         $scope.settings.status = $scope.constants.STATUS_DOING;
         $scope.settings.mode = $scope.constants.MODE_PROP;
         $scope.settings.timeout = 0;
-        $scope.settings.count = 30;
+        $scope.settings.count = 10;
         $scope.settings.correct = 0;
         $scope.settings.incorrect = 0;
 
@@ -25,7 +25,7 @@ angular.module("idiomControllers.startup", [])
         $scope.settings.status = $scope.constants.STATUS_DOING;
         $scope.settings.mode = $scope.constants.MODE_ERROR;
         $scope.settings.timeout = 0;
-        $scope.settings.count = 30;
+        $scope.settings.count = 10;
         $scope.settings.correct = 0;
         $scope.settings.incorrect = 0;
 
@@ -40,7 +40,7 @@ angular.module("idiomControllers.startup", [])
         $scope.settings.status = $scope.constants.STATUS_DOING;
         $scope.settings.mode = $scope.constants.MODE_TIMEOUT;
         $scope.settings.timeout = 0;
-        $scope.settings.count = 30;
+        $scope.settings.count = 10;
         $scope.settings.correct = 0;
         $scope.settings.incorrect = 0;
 

@@ -1,4 +1,4 @@
-angular.module("idiomControllers", ["idiomControllers.startup", "idiomControllers.doing"])
+angular.module("idiomControllers", ["idiomControllers.startup", "idiomControllers.doing", "idiomControllers.completed"])
 
 // 公共控制器
 .controller("wrapperController", ["$rootScope", "$scope", "$http", "$state", "apiAddr", "$translate", function($rootScope, $scope, $http, $state, apiAddr, $translate) {
