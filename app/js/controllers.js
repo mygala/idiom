@@ -52,7 +52,7 @@ angular.module("idiomControllers", ["idiomControllers.startup", "idiomController
 		COUNT: 10,			// 题目总数
 		ERROR: 3,			// 错误模式最多错误次数
 		TIMEOUT: 60,		// 倒计时模式时间长度，单位秒
-		TOTAL_TIMES: 180	// 最长总用时，超过就timeout
+		TOTAL_TIMES: 10	// 最长总用时，超过就timeout
 	};
 
 	// 初始化游戏数据
@@ -65,15 +65,15 @@ angular.module("idiomControllers", ["idiomControllers.startup", "idiomController
 
 		// 初始化游戏数据
 		$scope.runtime = {
-			status: null,			                // 状态标志
-			mode: null,				                // 游戏模式
-			times: 0,				                // 总用时
-			timeout: 0,				                // 超时控制
-			totalTimes: $scope.config.TOTAL_TIMES,  // 最长总用时，超过就timeout
-			count: $scope.config.COUNT,				// 题目总数
-			correct: 0,				                // 正确题目数
-			incorrect: 0,			                // 错误题目数
-			error: 0				                // 错误模式次数限制
+			status: null,			                		// 状态标志
+			mode: null,				                		// 游戏模式
+			times: 0,				                		// 总用时
+			timeout: $scope.config.TIMEOUT * 1000,			// 超时控制
+			totalTimes: $scope.config.TOTAL_TIMES * 1000,	// 最长总用时，超过就timeout
+			count: $scope.config.COUNT,						// 题目总数
+			correct: 0,				                		// 正确题目数
+			incorrect: 0,			                		// 错误题目数
+			error: $scope.config.ERROR						// 错误模式次数限制
 		};
 
 		if($scope.debug) {
@@ -82,6 +82,29 @@ angular.module("idiomControllers", ["idiomControllers.startup", "idiomController
 	}
 
 	/* 添加监听 开始 */
+
+	// 格式化输出时间
+	$scope.formatTime = function(time) {
+		function _isInteger(time) {
+			return typeof time === 'number' && time % 1 === 0;
+		}
+
+		var outputTime = null;
+		if(time < 10 && _isInteger(time)) {
+			outputTime = "0" + time.toString() + ".00";
+		} else if(time < 10 && _isInteger(time * 10)) {
+			outputTime = "0" + time.toString() + "0";
+		} else if(time < 10) {
+			outputTime = "0" + time.toString();
+		} else if(_isInteger(time)) {
+			outputTime = time.toString() + ".00";
+		} else if(_isInteger(time * 10)) {
+			outputTime = time.toString() + "0";
+		} else {
+			outputTime = time.toString();
+		}
+		return outputTime;
+	}
 
 	// 监听状态变化
 	$scope.$watch("runtime.status", function(newValue, oldValue) {

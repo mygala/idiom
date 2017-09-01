@@ -28,7 +28,6 @@ angular.module("idiomControllers.startup", [])
     $scope.playError = function() {
         $scope.runtime.status = $scope.constants.STATUS_DOING;
         $scope.runtime.mode = $scope.constants.MODE_ERROR;
-        $scope.runtime.error = $scope.config.ERROR;
 
         if($scope.debug) {
             console.log("doing params", $scope.runtime);
@@ -41,7 +40,6 @@ angular.module("idiomControllers.startup", [])
     $scope.playTimeout = function() {
         $scope.runtime.status = $scope.constants.STATUS_DOING;
         $scope.runtime.mode = $scope.constants.MODE_TIMEOUT;
-        $scope.runtime.timeout = $scope.config.TIMEOUT;
 
         if($scope.debug) {
             console.log("doing params", $scope.runtime);

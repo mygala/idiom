@@ -5,7 +5,7 @@
 	{{constants.MODE_TIMEOUT}}
 
 
-	<div class="timeout" ng-show="runtime.mode == constants.MODE_TIMEOUT" ng-bind="runtime.timeout / 1000"></div>
+	<div class="timeout" ng-show="runtime.mode == constants.MODE_TIMEOUT" ng-bind="doing.showTime"></div>
 	<div class="showIdiom">
 		<span ng-click="correcting(1)">{{doing.idioms[doing.i].w[0][0]}}</span>
 		<span ng-click="correcting(2)">{{doing.idioms[doing.i].w[1][0]}}</span>
