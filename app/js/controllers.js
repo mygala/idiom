@@ -39,19 +39,19 @@ angular.module("idiomControllers", ["idiomControllers.startup", "idiomController
 		MODE_PROP: 1,			// 正确率模式
 		MODE_ERROR: 2,			// 错误次数模式
 		MODE_TIMEOUT: 3,		// 倒计时模式
-		STATUS_LOADING: 50,		// 加载中
-		STATUS_STARTUP:	100,	// 开始
-		STATUS_DOING: 200,		// 进行中
-		STATUS_COMPLETED: 300,	// 正常完成结束
-		STATUS_TIMEOUT: 400,	// 时间到了结束
-		STATUS_ERROR: 500		// 错误次数到了结束
+		STATUS_LOADING: 100,	// 加载中
+		STATUS_STARTUP:	200,	// 开始
+		STATUS_DOING: 300,		// 进行中
+		STATUS_COMPLETED: 400,	// 正常完成结束
+		STATUS_TIMEOUT: 500,	// 时间到了结束
+		STATUS_ERROR: 600		// 错误次数到了结束
 	};
 
 	// 初始化配置
 	$scope.config = {
 		COUNT: 10,			// 题目总数
 		ERROR: 3,			// 错误模式最多错误次数
-		TIMEOUT: 60,		// 倒计时模式时间长度，单位秒
+		TIMEOUT: 5,		// 倒计时模式时间长度，单位秒
 		TOTAL_TIMES: 10	// 最长总用时，超过就timeout
 	};
 
