@@ -230,4 +230,15 @@ angular.module("idiomControllers", ["idiomControllers.loading", "idiomController
 
 	/* 请求接口封装 结束 */
 
+	// 多语言配置，临时代码，需要调整
+	$scope.active = 2;
+	$scope.changeLanguage = function(langKey, num) {
+		$translate.use(langKey);
+		if(num == 1) {
+			$scope.active = 1;
+		} else if(num == 2) {
+			$scope.active = 2;
+		}
+	};
+
 }]);
