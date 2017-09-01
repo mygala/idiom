@@ -33,7 +33,7 @@ idiomApp.config(["$stateProvider", "$urlRouterProvider", "$translateProvider", f
     });
 
     //设置默认路由
-    $urp.otherwise('/startup');
+    $urp.otherwise('/loading');
 
     // 设置国际化
     $translateProvider.translations('en-US', translationsEN);

@@ -1,7 +1,7 @@
 angular.module("idiomControllers", ["idiomControllers.loading", "idiomControllers.startup", "idiomControllers.doing", "idiomControllers.completed", "idiomControllers.timeout", "idiomControllers.error"])
 
 // 公共控制器
-.controller("wrapperController", ["$rootScope", "$scope", "$http", "$state", "apiAddr", "$translate", function($rootScope, $scope, $http, $state, apiAddr, $translate) {
+.controller("wrapperController", ["$rootScope", "$scope", "$http", "$state", "apiAddress", "$translate", function($rootScope, $scope, $http, $state, apiAddress, $translate) {
 
 	/* 拦截器 开始 */
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
@@ -52,7 +52,8 @@ angular.module("idiomControllers", ["idiomControllers.loading", "idiomController
 		COUNT: 10,			// 题目总数
 		ERROR: 3,			// 错误模式最多错误次数
 		TIMEOUT: 5,		// 倒计时模式时间长度，单位秒
-		TOTAL_TIMES: 10	// 最长总用时，超过就timeout
+		TOTAL_TIMES: 10,	// 最长总用时，超过就timeout
+		LOADING_TIME: 3000	// loading页面显示时间，单位毫秒
 	};
 
 	// 初始化游戏数据
@@ -173,7 +174,7 @@ angular.module("idiomControllers", ["idiomControllers.loading", "idiomController
 		http: function(path, method, data, callback) {
 			if(method.toLowerCase() == 'get') {
 				$http({
-					url: apiAddr.get() + path,
+					url: apiAddress.get() + path,
 					method: 'get',
 					params: data
 				}).success(function(data) {
@@ -189,7 +190,7 @@ angular.module("idiomControllers", ["idiomControllers.loading", "idiomController
 				})
 			} else if(method.toLowerCase() == 'post') {
 				$http({
-					url: apiAddr.get() + path,
+					url: apiAddress.get() + path,
 					method: 'post',
 					data: data
 				}).success(function(data) {
@@ -209,7 +210,7 @@ angular.module("idiomControllers", ["idiomControllers.loading", "idiomController
 				data.callback = "JSON_CALLBACK";
 
 				$http({
-					url: apiAddr.get() + path,
+					url: apiAddress.get() + path,
 					method: 'jsonp',
 					params: data
 				}).success(function(data) {
