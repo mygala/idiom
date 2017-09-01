@@ -194,9 +194,6 @@ angular.module("idiomControllers.doing", [])
 
     /* 添加监听 结束 */
 
-
-
-
     //将字符串拆成字符，并存到数组中
     String.prototype.strToChars = function() {
         var chars = new Array();

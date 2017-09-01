@@ -1,4 +1,4 @@
-angular.module("idiomControllers", ["idiomControllers.startup", "idiomControllers.doing", "idiomControllers.completed"])
+angular.module("idiomControllers", ["idiomControllers.loading", "idiomControllers.startup", "idiomControllers.doing", "idiomControllers.completed", "idiomControllers.timeout", "idiomControllers.error"])
 
 // 公共控制器
 .controller("wrapperController", ["$rootScope", "$scope", "$http", "$state", "apiAddr", "$translate", function($rootScope, $scope, $http, $state, apiAddr, $translate) {
@@ -115,6 +115,8 @@ angular.module("idiomControllers", ["idiomControllers.startup", "idiomController
 				if($scope.debug) {
 					console.log("STATUS_LOADING");
 				}
+
+				$state.go("loading");
 				break;
 			case $scope.constants.STATUS_STARTUP:
 
@@ -122,6 +124,7 @@ angular.module("idiomControllers", ["idiomControllers.startup", "idiomController
 				if($scope.debug) {
 					console.log("STATUS_STARTUP");
 				}
+				$state.go("startup");
 				break;
 			case $scope.constants.STATUS_DOING:
 
@@ -129,6 +132,8 @@ angular.module("idiomControllers", ["idiomControllers.startup", "idiomController
 				if($scope.debug) {
 					console.log("STATUS_DOING");
 				}
+
+				$state.go("doing");
 				break;
 			case $scope.constants.STATUS_COMPLETED:
 
@@ -136,6 +141,8 @@ angular.module("idiomControllers", ["idiomControllers.startup", "idiomController
 				if($scope.debug) {
 					console.log("STATUS_COMPLETED");
 				}
+
+				$state.go("completed");
 				break;
 			case $scope.constants.STATUS_TIMEOUT:
 
@@ -143,6 +150,8 @@ angular.module("idiomControllers", ["idiomControllers.startup", "idiomController
 				if($scope.debug) {
 					console.log("STATUS_TIMEOUT");
 				}
+
+				$state.go("timeout");
 				break;
 			case $scope.constants.STATUS_ERROR:
 
@@ -150,6 +159,8 @@ angular.module("idiomControllers", ["idiomControllers.startup", "idiomController
 				if($scope.debug) {
 					console.log("STATUS_ERROR");
 				}
+
+				$state.go("error");
 				break;
 		}
 	});
