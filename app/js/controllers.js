@@ -32,6 +32,10 @@ angular.module("idiomControllers", ["idiomControllers.loading", "idiomController
 	});
 	/* 拦截器 结束 */
 
+
+	console.log("$rootScope", $rootScope);
+
+
 	/* 公共变量 开始 */
 	$scope.debug = true;		// 调试模式开关
 

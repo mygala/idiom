@@ -1,6 +1,6 @@
 
 // 获取API地址
-idiomApp.factory("apiAddr", [function() {
+idiomApp.factory("apiAddress", [function() {
     var host = "http://127.0.0.1/backend/mygala/idiom/api";
     return {
         get: function() {
