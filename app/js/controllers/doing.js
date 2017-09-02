@@ -7,7 +7,8 @@ angular.module("idiomControllers.doing", [])
     $scope.doing = {
         i: 0,           // 成语位置控制
         idioms: null,   // 成语对象
-        showTime: ""    // 页面显示时间
+        showTime: "",   // 页面显示时间
+        ready: false    // 数据加载完成标志
     };
 
     // 开始游戏，加载页面时加载数据
@@ -62,6 +63,9 @@ angular.module("idiomControllers.doing", [])
                 }
 
             }
+
+            // 数据加载完成，监听开始设置计时器
+            $scope.doing.ready = true;
         }
     }
 
@@ -111,88 +115,94 @@ angular.module("idiomControllers.doing", [])
         }
     });
 
-    /* 添加监听 开始 */
+    // 数据加载完成后开始监听
+    $scope.$watch("doing.ready", function(newValue, oldValue) {
+        if(newValue === true) {
 
-    // 根据模式监听
-    switch($scope.runtime.mode) {
-        case $scope.constants.MODE_ERROR:       // 错误次数模式
+            /* 添加监听 开始 */
 
-            // 监听错误次数
-            $scope.$watch("runtime.incorrect", function(newValue, oldValue) {
-                if(newValue >= $scope.runtime.error) {
+            // 根据模式监听
+            switch ($scope.runtime.mode) {
+                case $scope.constants.MODE_ERROR:       // 错误次数模式
 
-                    // 停止顺时计时
-                    $interval.cancel($scope.timerInterval);
+                    // 监听错误次数
+                    $scope.$watch("runtime.incorrect", function (newValue, oldValue) {
+                        if (newValue >= $scope.runtime.error) {
 
-                    // 修改状态
-                    $scope.runtime.status = $scope.constants.STATUS_ERROR;
-                }
-            });
-        case $scope.constants.MODE_PROP:        // 正确率模式
+                            // 停止顺时计时
+                            $interval.cancel($scope.timerInterval);
 
-            // 定义顺时计时器
-            $scope.timerInterval = $interval(function() {
-                $scope.runtime.times = $scope.runtime.times + 10;
+                            // 修改状态
+                            $scope.runtime.status = $scope.constants.STATUS_ERROR;
+                        }
+                    });
+                case $scope.constants.MODE_PROP:        // 正确率模式
 
-                if($scope.debug) {
-                    console.log("countdown", $scope.runtime.times);
-                }
-            }, 10);
+                    // 定义顺时计时器
+                    $scope.runtime.timerInterval = $interval(function () {
+                        $scope.runtime.times = $scope.runtime.times + 10;
 
-            // 超出总时长监听
-            $scope.$watch("runtime.times", function(newValue, oldValue) {
+                        if ($scope.debug) {
+                            console.log("times", $scope.runtime.times);
+                        }
+                    }, 10);
 
-                // 设置页面显示时间格式
-                $scope.doing.showTime = $scope.formatTime(newValue / 1000);
+                    // 超出总时长监听
+                    $scope.$watch("runtime.times", function (newValue, oldValue) {
 
-                if(newValue >= $scope.runtime.totalTimes) {
+                        // 设置页面显示时间格式
+                        $scope.doing.showTime = $scope.formatTime(newValue / 1000);
 
-                    // 停止顺时计时，修正times的值
-                    $interval.cancel($scope.timerInterval);
+                        if (newValue >= $scope.runtime.totalTimes) {
 
-                    if(newValue > $scope.runtime.totalTimes) {
-                        $scope.runtime.timeout = $scope.runtime.totalTimes;
-                    }
+                            // 停止顺时计时，修正times的值
+                            $interval.cancel($scope.runtime.timerInterval);
 
-                    // 修改状态
-                    $scope.runtime.status = $scope.constants.STATUS_TIMEOUT;
-                }
-            });
-            break;
-        case $scope.constants.MODE_TIMEOUT:     // 倒计时模式
+                            if (newValue > $scope.runtime.totalTimes) {
+                                $scope.runtime.timeout = $scope.runtime.totalTimes;
+                            }
 
-            // 定义倒计时器
-            $scope.countdownInterval = $interval(function() {
-                $scope.runtime.timeout = $scope.runtime.timeout - 10;
+                            // 修改状态
+                            $scope.runtime.status = $scope.constants.STATUS_TIMEOUT;
+                        }
+                    });
+                    break;
+                case $scope.constants.MODE_TIMEOUT:     // 倒计时模式
 
-                if($scope.debug) {
-                    console.log("countdown", $scope.runtime.timeout);
-                }
-            }, 10);
+                    // 定义倒计时器
+                    $scope.runtime.countdownInterval = $interval(function () {
+                        $scope.runtime.timeout = $scope.runtime.timeout - 10;
 
-            // 监听timeout
-            $scope.$watch("runtime.timeout", function(newValue, oldValue) {
+                        if ($scope.debug) {
+                            console.log("countdown", $scope.runtime.timeout);
+                        }
+                    }, 10);
 
-                // 设置页面显示时间格式
-                $scope.doing.showTime = $scope.formatTime(newValue / 1000);
+                    // 监听timeout
+                    $scope.$watch("runtime.timeout", function (newValue, oldValue) {
 
-                if(newValue <= 0) {
+                        // 设置页面显示时间格式
+                        $scope.doing.showTime = $scope.formatTime(newValue / 1000);
 
-                    // 停止倒计时，修正timeout的值
-                    $interval.cancel($scope.countdownInterval);
+                        if (newValue <= 0) {
 
-                    if(newValue < 0) {
-                        $scope.runtime.timeout = 0;
-                    }
+                            // 停止倒计时，修正timeout的值
+                            $interval.cancel($scope.runtime.countdownInterval);
 
-                    // 修改状态
-                    $scope.runtime.status = $scope.constants.STATUS_TIMEOUT;
-                }
-            });
-            break;
-    }
+                            if (newValue < 0) {
+                                $scope.runtime.timeout = 0;
+                            }
 
-    /* 添加监听 结束 */
+                            // 修改状态
+                            $scope.runtime.status = $scope.constants.STATUS_TIMEOUT;
+                        }
+                    });
+                    break;
+            }
+
+            /* 添加监听 结束 */
+        }
+    });
 
     //将字符串拆成字符，并存到数组中
     String.prototype.strToChars = function() {

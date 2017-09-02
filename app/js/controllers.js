@@ -1,7 +1,7 @@
 angular.module("idiomControllers", ["idiomControllers.loading", "idiomControllers.startup", "idiomControllers.doing", "idiomControllers.completed", "idiomControllers.timeout", "idiomControllers.error"])
 
 // 公共控制器
-.controller("wrapperController", ["$rootScope", "$scope", "$http", "$state", "apiAddress", "$translate", function($rootScope, $scope, $http, $state, apiAddress, $translate) {
+.controller("wrapperController", ["$rootScope", "$scope", "$http", "$state", "apiAddress", "$translate", "$interval", function($rootScope, $scope, $http, $state, apiAddress, $translate, $interval) {
 
 	/* 拦截器 开始 */
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
@@ -55,9 +55,9 @@ angular.module("idiomControllers", ["idiomControllers.loading", "idiomController
 	$scope.config = {
 		COUNT: 10,			// 题目总数
 		ERROR: 3,			// 错误模式最多错误次数
-		TIMEOUT: 5,		// 倒计时模式时间长度，单位秒
-		TOTAL_TIMES: 10,	// 最长总用时，超过就timeout
-		LOADING_TIME: 3000	// loading页面显示时间，单位毫秒
+		TIMEOUT: 3,		// 倒计时模式时间长度，单位秒
+		TOTAL_TIMES: 3,	// 最长总用时，超过就timeout
+		LOADING_TIME: 1000	// loading页面显示时间，单位毫秒
 	};
 
 	// 初始化游戏数据
@@ -67,6 +67,16 @@ angular.module("idiomControllers", ["idiomControllers.loading", "idiomController
 
 	// 初始化游戏数据（重置）
 	$scope.initRuntime = function() {
+
+		// 强制结束顺时计时器
+		if($scope.runtime.timerInterval && typeof $scope.runtime.timerInterval === "object" && $scope.runtime.timerInterval.$$state.status != 2) {
+			$interval.cancel($scope.runtime.timerInterval);
+		}
+
+		// 强制结束倒计时器
+		if($scope.runtime.countdownInterval && typeof $scope.runtime.countdownInterval === "object" && $scope.runtime.countdownInterval.$$state.status != 2) {
+			$interval.cancel($scope.runtime.countdownInterval);
+		}
 
 		// 初始化游戏数据
 		$scope.runtime = {
@@ -78,7 +88,9 @@ angular.module("idiomControllers", ["idiomControllers.loading", "idiomController
 			count: $scope.config.COUNT,						// 题目总数
 			correct: 0,				                		// 正确题目数
 			incorrect: 0,			                		// 错误题目数
-			error: $scope.config.ERROR						// 错误模式次数限制
+			error: $scope.config.ERROR,						// 错误模式次数限制
+			timerInterval: undefined,						// 顺时监听对象
+			countdownInterval: undefined					// 倒计时监听对象
 		};
 
 		if($scope.debug) {
