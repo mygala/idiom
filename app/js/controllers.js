@@ -17,7 +17,7 @@ angular.module("idiomControllers", ["idiomControllers.loading", "idiomController
 			case "loading":
 
 				console.log("loading");
-				
+
 				break;
 			case "doing":
 
