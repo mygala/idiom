@@ -4,19 +4,26 @@ angular.module("idiomControllers", ["idiomControllers.loading", "idiomController
 .controller("wrapperController", ["$rootScope", "$scope", "$http", "$state", "apiAddress", "$translate", "$interval", function($rootScope, $scope, $http, $state, apiAddress, $translate, $interval) {
 
 	/* 拦截器 开始 */
+
+	// 正常拦截
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 
-		window.alert("$stateChangeStart");
+		console.log("$stateChangeStart");
 
 		// 路由切换之前，拦截，下边是具体处理
 		event.preventDefault();
 
 		switch (toState.name) {
+			case "loading":
+
+				console.log("loading");
+				
+				break;
 			case "doing":
 
-				console.log($scope.settings.status);
+				console.log($scope.runtime.status);
 
-				if (!$scope.settings.status || !$scope.settings.mode) {
+				if (!$scope.runtime.status || !$scope.runtime.mode) {
 					$state.go("startup");
 					return;
 				}
@@ -29,6 +36,18 @@ angular.module("idiomControllers", ["idiomControllers.loading", "idiomController
 		function release() {
 			event.defaultPrevented = false;
 		}
+	});
+
+	// state未定义
+	$rootScope.$on('$stateNotFound', function(event, unfoundState, fromState, fromParams) {
+
+		// state未定义处理
+
+		// 路由切换之前，拦截，下边是具体处理
+		event.preventDefault();
+
+		// 跳转到loading页
+		$state.go("loading");
 	});
 	/* 拦截器 结束 */
 
