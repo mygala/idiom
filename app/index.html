@@ -3,20 +3,17 @@
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title></title>
-		<link rel="stylesheet" href="less/main.less">
-		<link rel="stylesheet" href="less/extras.less">
+		<title>idiom</title>
+		<link rel="stylesheet" href="css/main.css">
+		<link rel="stylesheet" href="css/extras.css">
 	</head>
 	<body ng-controller="wrapperController">
-		<div class="wrapper">
-			<div class="header">
-				header
+		<div class="wrapper relative">
+			<div class="bg">
+				<img class="absolute z0" ng-src="../images/bg.jpg" alt="">
 			</div>
-			<div class="main" ui-view>
+			<div class="main absolute z1" ui-view>
 
-			</div>
-			<div class="footer">
-				footer
 			</div>
 		</div>
 

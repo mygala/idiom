@@ -1,7 +1,7 @@
 module.exports = function(grunt) {
 
 	// LiveReload的默认端口号，你也可以改成你想要的端口号
-	var lrPort = 95729;
+	var lrPort = 35729;
 	// 使用connect-livereload模块，生成一个与LiveReload脚本
 	// <script src="http://127.0.0.1:35729/livereload.js?snipver=1" type="text/javascript"></script>
 	var lrSnippet = require('connect-livereload')({
@@ -33,7 +33,7 @@ module.exports = function(grunt) {
 				// 服务器地址(可以使用主机名localhost，也能使用IP)
 				hostname: 'localhost',
 				// 物理路径(默认为. 即根目录) 注：使用'.'或'..'为路径的时，可能会返回403 Forbidden. 此时将该值改为相对路径 如：/grunt/reloard。
-				base: '.'
+				base: './app'
 			},
 			livereload: {
 				options: {
@@ -51,7 +51,7 @@ module.exports = function(grunt) {
 				},
 				// '**' 表示包含所有的子目录
 				// '*' 表示包含所有的文件
-				files: ['app/*.html', 'app/js/**/*.js', 'app/less/**/*.css', 'app/images/**/*', 'app/tpls/**/*.html', 'app/data/**/*.json', 'app/bower_components/**/*']
+				files: ['app/*.html', 'app/js/**/*.js', 'app/css/**/*.css', 'app/images/**/*', 'app/tpls/**/*.html', 'app/data/**/*.json', 'app/bower_components/**/*']
 			}
 		},
 		// 文件合并
@@ -72,12 +72,12 @@ module.exports = function(grunt) {
 				dest: 'dist/js/<%= pkg.file %>.extras.js'
 			},
 			css_base: {
-				src: ['app/less/main.less', 'app/less/extras.less'],
-				dest: 'dist/less/<%= pkg.file %>.css'
+				src: ['app/css/main.css', 'app/css/extras.css'],
+				dest: 'dist/css/<%= pkg.file %>.css'
 			},
 			css_extras: {
-				src: ['app/less/main.less', 'app/less/extras.less'],
-				dest: 'dist/less/<%= pkg.file %>.extras.less'
+				src: ['app/css/main.css', 'app/css/extras.css'],
+				dest: 'dist/css/<%= pkg.file %>.extras.css'
 			}
 		},
 		// JS脚本语法检查
@@ -112,12 +112,12 @@ module.exports = function(grunt) {
 		// CSS压缩
 		cssmin: {
 			css_base: {
-				src: ['app/less/*.css'],
-				dest: 'dist/less/<%= pkg.file %>.min.css'
+				src: ['app/css/*.css'],
+				dest: 'dist/css/<%= pkg.file %>.min.css'
 			},
 			css_extras: {
-				src: ['app/less/*.css'],
-				dest: 'dist/less/<%= pkg.file %>.extras.min.css'
+				src: ['app/css/*.css'],
+				dest: 'dist/css/<%= pkg.file %>.extras.min.css'
 			}
 		}
 	}); // grunt.initConfig配置完毕
