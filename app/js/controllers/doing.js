@@ -3,6 +3,10 @@ angular.module("idiomControllers.doing", [])
 // doing
 .controller("doingCtrl", ["$scope", "$state", "getSign", "$interval", function($scope, $state, getSign, $interval) {
 
+    if($scope.debug) {
+        console.log("doingCtrl");
+    }
+
     // 成语数据
     $scope.doing = {
         i: 0,           // 成语位置控制
@@ -76,21 +80,25 @@ angular.module("idiomControllers.doing", [])
         }
 
         if(selected == $scope.doing.idioms[$scope.doing.i].error_location) {
-            if($scope.debug) {
-                console.log("correct");
-            }
-
             $scope.runtime.correct++;      // 回答正确
-        } else {
-            if($scope.debug) {
-                console.log("incorrect");
-            }
 
+            if($scope.debug) {
+                console.log("correct", $scope.runtime.correct);
+            }
+        } else {
             $scope.runtime.incorrect++;    // 回答错误
+
+            if($scope.debug) {
+                console.log("incorrect", $scope.runtime.incorrect);
+            }
         }
 
         // 输入下一个成语
         $scope.doing.i++;
+
+        if($scope.debug) {
+            console.log("i", $scope.doing.i);
+        }
     }
 
     // 监听成语数量，如果全部回答完成，修改状态为正常完成

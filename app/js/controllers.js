@@ -8,24 +8,16 @@ angular.module("idiomControllers", ["idiomControllers.loading", "idiomController
 	// 正常拦截
 	$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
 
-		console.log("$stateChangeStart");
-
 		// 路由切换之前，拦截，下边是具体处理
 		event.preventDefault();
 
 		switch (toState.name) {
-			case "loading":
-
-				console.log("loading");
-
-				break;
 			case "doing":
-
-				console.log($scope.runtime.status);
-
 				if (!$scope.runtime.status || !$scope.runtime.mode) {
-					$state.go("startup");
+					$scope.runtime.status = $scope.constants.STATUS_STARTUP;
 					return;
+				} else {
+					release();
 				}
 				break;
 			default:
@@ -47,7 +39,7 @@ angular.module("idiomControllers", ["idiomControllers.loading", "idiomController
 		event.preventDefault();
 
 		// 跳转到loading页
-		$state.go("loading");
+		$scope.runtime.status = $scope.constants.STATUS_STARTUP;
 	});
 	/* 拦截器 结束 */
 
@@ -160,6 +152,7 @@ angular.module("idiomControllers", ["idiomControllers.loading", "idiomController
 				if($scope.debug) {
 					console.log("STATUS_STARTUP");
 				}
+
 				$state.go("startup");
 				break;
 			case $scope.constants.STATUS_DOING:
