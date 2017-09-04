@@ -10,13 +10,36 @@ idiomApp.factory("apiAddress", [function() {
 }]);
 
 // 校验算法
-idiomApp.factory("getSign", [function() {
+
+/* 请求接口 开始 */
+
+// 请求成语数据
+idiomApp.factory("apis", [function() {
 
     var hexcase = 0; /* hex output format. 0 - lowercase; 1 - uppercase     */
     var chrsz = 8;	/* bits per input character. 8 - ASCII; 16 - Unicode    */
 
     return {
-        get: function(o) {
+        getRandom: function(params, callback, scope) {
+
+            if(typeof params === "object") {
+
+                // 请求参数加密
+                params.sign = this.getSign(params);
+
+                if(scope.debug) {
+                    console.log("random params", params);
+                }
+
+                // 有条数再请求接口，避免务必要请求
+                if(params.number) {
+
+                    // 请求接口
+                    scope.request.http("/get/random.php", "get", params, callback);
+                }
+            }
+        },
+        getSign: function(o) {
             var sign = null;
             if(typeof o === "object") {
                 var string = params2String(sort(o));
@@ -121,7 +144,4 @@ idiomApp.factory("getSign", [function() {
     }
 }]);
 
-
-
-
-
+/* 请求接口 结束 */

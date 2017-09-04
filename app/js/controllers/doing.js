@@ -1,7 +1,7 @@
 angular.module("idiomControllers.doing", [])
 
 // doing
-.controller("doingCtrl", ["$scope", "$state", "getSign", "$interval", function($scope, $state, getSign, $interval) {
+.controller("doingCtrl", ["$scope", "$state", "apis", "strToChars", "formatTime", "$interval", function($scope, $state, apis, strToChars, formatTime, $interval) {
 
     if($scope.debug) {
         console.log("doingCtrl");
@@ -23,22 +23,14 @@ angular.module("idiomControllers.doing", [])
             number: $scope.runtime.count
         };
 
-        params.sign = getSign.get(params);
-
-        if($scope.debug) {
-            console.log("random params", params);
-        }
-
-        // 有条数再请求接口，避免务必要请求
-        if(params.number) {
-
-            // 请求接口
-            $scope.request.http("/get/random.php", "get", params, $scope.getDataCallback);
-        }
+        // 随机获取成语数据
+        apis.getRandom(params, $scope.getRandomCallback, $scope);
     });
 
-    // 加载时获取班级数据回调
-    $scope.getDataCallback = function(data) {
+    /* 接口回调 开始 */
+
+    // 随机获取成语数据回调
+    $scope.getRandomCallback = function(data) {
 
         // 调试模式日志
         if($scope.debug) {
@@ -59,19 +51,20 @@ angular.module("idiomControllers.doing", [])
 
             // 遍历成语并设置错误数据
             for(w in $scope.doing.idioms) {
-                $scope.doing.idioms[w].w = $scope.doing.idioms[w].word.strToChars();
+                $scope.doing.idioms[w].w = strToChars.get($scope.doing.idioms[w].word);
                 $scope.doing.idioms[w].w[$scope.doing.idioms[w].error_location - 1][0] = $scope.doing.idioms[w].error_word;
 
                 if($scope.debug) {
                     console.log($scope.doing.idioms[w]);
                 }
-
             }
 
             // 数据加载完成，监听开始设置计时器
             $scope.doing.ready = true;
         }
     }
+
+    /* 接口回调 结束 */
 
     // 判断选择结果
     $scope.correcting = function(selected) {
@@ -159,7 +152,7 @@ angular.module("idiomControllers.doing", [])
                     $scope.$watch("runtime.times", function (newValue, oldValue) {
 
                         // 设置页面显示时间格式
-                        $scope.doing.showTime = $scope.formatTime(newValue / 1000);
+                        $scope.doing.showTime = formatTime.get(newValue / 1000);
 
                         if (newValue >= $scope.runtime.totalTimes) {
 
@@ -190,7 +183,7 @@ angular.module("idiomControllers.doing", [])
                     $scope.$watch("runtime.timeout", function (newValue, oldValue) {
 
                         // 设置页面显示时间格式
-                        $scope.doing.showTime = $scope.formatTime(newValue / 1000);
+                        $scope.doing.showTime = formatTime.get(newValue / 1000);
 
                         if (newValue <= 0) {
 
@@ -211,24 +204,4 @@ angular.module("idiomControllers.doing", [])
             /* 添加监听 结束 */
         }
     });
-
-    //将字符串拆成字符，并存到数组中
-    String.prototype.strToChars = function() {
-        var chars = new Array();
-        for(var i = 0;i < this.length;i++) {
-            chars[i] = [this.substr(i, 1), this.isCHS(i)];
-        }
-        String.prototype.charsArray = chars;
-        return chars;
-    }
-
-    //判断某个字符是否是汉字
-    String.prototype.isCHS = function(i) {
-        if(this.charCodeAt(i) > 255 || this.charCodeAt(i) < 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
 }]);

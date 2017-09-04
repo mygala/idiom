@@ -1,7 +1,7 @@
 angular.module("idiomControllers", ["idiomControllers.loading", "idiomControllers.startup", "idiomControllers.doing", "idiomControllers.completed", "idiomControllers.timeout", "idiomControllers.error"])
 
 // 公共控制器
-.controller("wrapperController", ["$rootScope", "$scope", "$http", "$state", "apiAddress", "$translate", "$interval", function($rootScope, $scope, $http, $state, apiAddress, $translate, $interval) {
+.controller("wrapperController", ["$rootScope", "$scope", "$http", "$state", "apiAddress", "apis", "$translate", "$interval", function($rootScope, $scope, $http, $state, apiAddress, apis, $translate, $interval) {
 
 	/* 拦截器 开始 */
 
@@ -12,9 +12,63 @@ angular.module("idiomControllers", ["idiomControllers.loading", "idiomController
 		event.preventDefault();
 
 		switch (toState.name) {
+			case "loading":
+				if($scope.debug) {
+					console.log("$stateChangeStart", "loading");
+				}
+
+				release();
+				break;
+			case "startup":
+				if($scope.debug) {
+					console.log("$stateChangeStart", "startup");
+				}
+
+				release();
+				break;
 			case "doing":
-				if (!$scope.runtime.status || !$scope.runtime.mode) {
-					$scope.runtime.status = $scope.constants.STATUS_STARTUP;
+				if (fromState.name != "startup" || !$scope.runtime.status || !$scope.runtime.mode) {
+					if($scope.debug) {
+						console.log("$stateChangeStart", "doing");
+					}
+
+					$scope.runtime.status = $scope.constants.STATUS_LOADING;
+					return;
+				} else {
+					release();
+				}
+				break;
+			case "completed":
+				if(fromState.name != "doing") {
+					if($scope.debug) {
+						console.log("$stateChangeStart", "completed");
+					}
+
+					$scope.runtime.status = $scope.constants.STATUS_LOADING;
+					return;
+				} else {
+					release();
+				}
+				break;
+			case "timeout":
+				if(fromState.name != "doing") {
+					if($scope.debug) {
+						console.log("$stateChangeStart", "timeout");
+					}
+
+					$scope.runtime.status = $scope.constants.STATUS_LOADING;
+					return;
+				} else {
+					release();
+				}
+				break;
+			case "error":
+				if(fromState.name != "doing") {
+					if($scope.debug) {
+						console.log("$stateChangeStart", "error");
+					}
+
+					$scope.runtime.status = $scope.constants.STATUS_LOADING;
 					return;
 				} else {
 					release();
@@ -39,13 +93,9 @@ angular.module("idiomControllers", ["idiomControllers.loading", "idiomController
 		event.preventDefault();
 
 		// 跳转到loading页
-		$scope.runtime.status = $scope.constants.STATUS_STARTUP;
+		$scope.runtime.status = $scope.constants.STATUS_LOADING;
 	});
 	/* 拦截器 结束 */
-
-
-	console.log("$rootScope", $rootScope);
-
 
 	/* 公共变量 开始 */
 	$scope.debug = true;		// 调试模式开关
@@ -109,30 +159,21 @@ angular.module("idiomControllers", ["idiomControllers.loading", "idiomController
 		}
 	}
 
-	/* 添加监听 开始 */
+	// 重新开始，跳转到loading页面重新加载
+	$scope.reset = function() {
 
-	// 格式化输出时间
-	$scope.formatTime = function(time) {
-		function _isInteger(time) {
-			return typeof time === 'number' && time % 1 === 0;
+		if($scope.debug) {
+			console.log("reset");
 		}
 
-		var outputTime = null;
-		if(time < 10 && _isInteger(time)) {
-			outputTime = "0" + time.toString() + ".00";
-		} else if(time < 10 && _isInteger(time * 10)) {
-			outputTime = "0" + time.toString() + "0";
-		} else if(time < 10) {
-			outputTime = "0" + time.toString();
-		} else if(_isInteger(time)) {
-			outputTime = time.toString() + ".00";
-		} else if(_isInteger(time * 10)) {
-			outputTime = time.toString() + "0";
-		} else {
-			outputTime = time.toString();
-		}
-		return outputTime;
+		// 初始化游戏数据（重置）
+		$scope.initRuntime();
+
+		// 跳转到startup页
+		$scope.runtime.status = $scope.constants.STATUS_STARTUP;
 	}
+
+	/* 添加监听 开始 */
 
 	// 监听状态变化
 	$scope.$watch("runtime.status", function(newValue, oldValue) {
