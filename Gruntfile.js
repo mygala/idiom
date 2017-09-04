@@ -51,7 +51,7 @@ module.exports = function(grunt) {
 				},
 				// '**' 表示包含所有的子目录
 				// '*' 表示包含所有的文件
-				files: ['app/*.html', 'app/js/**/*.js', 'app/css/**/*.css', 'app/images/**/*', 'app/tpls/**/*.html', 'app/data/**/*.json', 'app/bower_components/**/*']
+				files: ['app/*.html', 'app/js/**/*.js', 'app/css/**/*.css', 'app/images/**/*', 'app/tpls/**/*.html', 'app/framework/**/*', 'app/plugins/**/*']
 			}
 		},
 		// 文件合并
