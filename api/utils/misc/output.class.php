@@ -12,9 +12,10 @@
          * @param int $code
          * @param any $extends
          * @param bool $o
+         * @param bool $isJsonp
          * @return string
          */
-        public static function r($code, $extends = null, $o = false) {
+        public static function r($code, $extends = null, $o = false, $jsonp = "") {
             $output = null;
 
             $output['code']   = $code;
@@ -30,11 +31,17 @@
                 }
             }
 
+            $json = self::toJson($output);
+
+            if($jsonp && strlen($jsonp) > 0) {
+                $json = $jsonp . "(" . $json . ")";
+            }
+
             if ($o) {
-                echo self::toJson($output);
+                echo $json;
                 return null;
             } else {
-                return self::toJson($output);
+                return $json;
             }
         }
 

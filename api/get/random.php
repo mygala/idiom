@@ -39,8 +39,8 @@
 
         $data = $get->randomRecord($params);
 
-        echo Output::r(200, $data);
+        echo Output::r(200, $data, false, isset($_REQUEST["callback"]) ? $_REQUEST["callback"] : "");
 
     } else {
-        echo Output::r(2001);
+        echo Output::r(2001, null, false, isset($_REQUEST["callback"]) ? $_REQUEST["callback"] : "");
     }
