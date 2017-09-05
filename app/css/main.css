@@ -1,13 +1,8 @@
 @charset "utf-8";
 
 @font-face {
-	font-family: "PINGFANG_BOLD";
-	src: url("../fonts/PINGFANG_BOLD.TTF");
-}
-
-@font-face {
-	font-family: "PINGFANG_MEDIUM";
-	src: url("../fonts/PINGFANG_MEDIUM.TTF");
+	font-family: "shufa";
+	src: url("../fonts/shufa.ttf");
 }
 
 html {
