@@ -35,7 +35,7 @@ idiomApp.factory("apis", [function() {
                 if(params.number) {
 
                     // 请求接口
-                    scope.request.http("/get/random.php", "get", params, callback);
+                    scope.request.http("/get/random.php", "jsonp", params, callback);
                 }
             }
         },
